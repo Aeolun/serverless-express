@@ -30,9 +30,9 @@ function getRequestValuesFromApiGatewayEvent ({ event }) {
 
   let body
 
-  if (event.body) {
+  const isBase64Encoded = event.isBase64Encoded
+  if (event.body && isBase64Encoded) {
     body = getEventBody({ event })
-    const isBase64Encoded = event.isBase64Encoded
     headers['content-length'] = Buffer.byteLength(body, isBase64Encoded ? 'base64' : 'utf8')
   }
 
